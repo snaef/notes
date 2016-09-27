@@ -1,0 +1,54 @@
+.title {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.description {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.importance {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.due_date {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.label {
+    width: 20%;
+    min-width: 80px;
+    margin-top: 5px;
+
+}
+
+textarea {
+    width: 80%;
+    height: 150px;
+    border: solid #000000 3px;
+    padding: 4px;
+}
+
+input {
+    width: 80%;
+    border: solid #000000 3px;
+    padding: 4px;
+}
+
+input[type="button"].submit {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.date {
+    width: 30%;
+    text-align: right;
+}
+
+.cancel_button {
+    width: 20%;
+    float: right;
+}

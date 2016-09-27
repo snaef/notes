@@ -1,0 +1,147 @@
+/*******************************************************************
+    Styling of the header section:
+    - Create button for new notes
+    - Style switch
+    - Sorting and filtering buttons for the notes
+*********************************************************************/
+.header {
+
+    margin-bottom: 20px;
+}
+
+.admin {
+    display: flex;
+}
+
+.notes_creation {
+    width: 10%;
+    min-width: 120px;
+}
+
+.empty_admin_diff {
+    width: 80%;
+}
+.notes_styling {
+    width: 10%;
+    min-width: 120px;
+}
+
+.styles {
+    height:30px;
+    line-height:30px;
+    padding: 0px;
+    width: 10%;
+    min-width: 120px;
+    background:#F7F9FA; /* Custom color needed in order the height works in Safari. Is there really no other solution???*/
+    float: right;
+    font: 12px arial, sans-serif;
+}
+
+.sorting_filtering {
+    display: flex;
+}
+
+.sorting {
+    width: 60%;
+    min-width: 360px;
+    text-align: left;
+
+}
+
+.empty_div {
+    width: 30%;
+}
+
+.filtering {
+    width: 10%;
+    min-width: 120px;
+    float: right;
+}
+
+/*******************************************************************
+    Styling of the main section:
+    - Notes display
+*********************************************************************/
+.content {
+    width: 100%
+}
+
+article {
+    display: flex;
+}
+
+.note {
+    width: 92%;
+    flex-wrap: wrap;
+}
+
+
+.note_header {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.due_date {
+    width: 10%;
+    min-width: 120px;
+}
+
+.title {
+    width: 80%;
+}
+
+.importance {
+    width: 10%;
+    min-width: 120px;
+    text-align: right;
+}
+
+.status {
+    width: 10%;
+    min-width: 120px;
+}
+
+.description {
+    width: 90%;
+    border: solid #000000 3px;
+    padding: 4px;
+
+}
+
+.note_details {
+    width: 100%;
+    display: flex;
+}
+
+.edit {
+    width: 8%;
+    min-width: 60px;
+    position:relative;
+    margin-left: 15px;
+}
+
+
+/*******************************************************************
+    Styling of the buttons
+*********************************************************************/
+
+input[type="button"].sorting_button {
+    border-radius: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 30%;
+    float: left;
+}
+
+input[type="button"].edit_button {
+    max-width: 60px;
+    min-width: 40px;
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    right:    0;
+    bottom:   2px; /* Not 0 due to shadow below button */
+    margin-bottom: 0px;
+}

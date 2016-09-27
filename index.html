@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes application</title>
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/view_notes.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="admin">
+                <div class="notes_creation">
+                    <input class="create_note" type="button" onclick="location.href='create_note.html';" value="Create new note">
+                    <!--<button class="create_note " type="button">Create new note</button>-->
+                </div>
+                <div class="empty_admin_diff"></div>
+                <div class="notes_styling">
+                    <select class="styles" name="styles">
+                        <option>Black white style</option>
+                        <option>Random style</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sorting_filtering">
+                <div class="sorting">
+                    <input class="sorting_button" type="button" value="Due date">
+                    <input class="sorting_button" type="button" value="Creation date">
+                    <input class="sorting_button" type="button" value="Importance">
+                </div>
+                <div class="empty_div"></div>
+                <div class="filtering">
+                    <input class="filtering" type="button" value="Show finished">
+                </div>
+            </div>
+        </header>
+        <main class="content">
+            <article class="article">
+                <div class="note">
+                    <header class="note_header">
+                        <div class="due_date">
+                            17.10.2016
+                        </div>
+                        <div class="title">
+                            CAS Frontend Engineering - Selbstudium / Projektaufgabe erledigen
+
+                        </div>
+                        <div class="importance">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                        </div>
+                    </header>
+                    <div class="note_details">
+                        <div class="status">
+                            <input type="checkbox">     Finished
+                        </div>
+                        <div class="description">
+                            HTML für die note App erstellen. <br>
+                            CSS erstellen für die note app [...]
+                        </div>
+                    </div>
+                </div>
+                <div class="edit">
+                    <input class="edit_button" type="button" value="Edit">
+                </div>
+            </article>
+        </main>
+    </div>
+</body>
+</html>

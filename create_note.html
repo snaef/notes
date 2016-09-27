@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes application</title>
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/new_note.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+        <form action="" class="create_note">
+            <div class="title">
+                <div class="label">Title</div>
+                <input type="text" name="title" value="">
+            </div>
+            <div class="description">
+                <div class="label">Description</div>
+                <textarea></textarea>
+            </div>
+            <div class="importance">
+                <div class="label">Importance</div>
+                <div class="importance">
+                    <img class="flash" src="images/flash.svg" alt="Flash icon">
+                    <img class="flash" src="images/flash.svg" alt="Flash icon">
+                    <img class="flash" src="images/flash.svg" alt="Flash icon">
+                    <img class="flash" src="images/flash.svg" alt="Flash icon">
+                    <img class="flash" src="images/flash.svg" alt="Flash icon">
+                </div>
+            </div>
+            <div class="due_date">
+                <div class="label">Due date</div>
+                <input class="date" type="date" name="due_date" value="">
+            </div>
+
+
+            <input type="button" class="submit" value="Save"/>
+        </form>
+        <input type="button" class="cancel_button" onclick="location.href='index.html';" value="Cancel"/>
+    </div>
+</body>
+</html>
