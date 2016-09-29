@@ -66,8 +66,9 @@
     width: 100%
 }
 
-article {
+.note_entry {
     display: flex;
+    margin-top: 20px;
 }
 
 .note {
@@ -98,7 +99,7 @@ article {
     text-align: right;
 }
 
-.status {
+.finished {
     width: 10%;
     min-width: 120px;
 }

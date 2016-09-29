@@ -5,6 +5,7 @@
     <title>Notes application</title>
     <link href="css/main.css" rel="stylesheet">
     <link href="css/view_notes.css" rel="stylesheet">
+
 </head>
 <body>
     <div class="container">
@@ -35,8 +36,91 @@
                 </div>
             </div>
         </header>
-        <main class="content">
-            <article class="article">
+        <main class="content" id="main_content">
+            <script>
+
+            var notes = [
+                {"title":"CAS FE - Projekt im Github eintragen.", "due_date":"16.09.2016", "importance":1, "finished":true, "description":"HTML für die note App erstellen. CSS erstellen für die note app "},
+                {"title":"CAS FE - HTML Gerüst erstellen für die WireFrames inkl. CSS.", "due_date":"23.09.2016", "importance":3, "finished":true, "description":""},
+                {"title":"CAS FE - HTML Seite ausprogrammieren.", "due_date":"30.09.2016", "importance":5, "finished":false, "description":"HTML Seite ausprogrammieren: Anzeigen der Einträge / Filtern / Sortieren Daten in einer Variable abspeichern & Beispiel Daten erfassen. Handlebars verwenden für das Rendern der Einträge. "}
+            ];
+
+
+            function appendNotes(notes) {
+                var df = document.createDocumentFragment();
+                notes.forEach(function (note) {
+                    var noteEntryElement = document.createElement("div");
+                    noteEntryElement.className = "note_entry";
+                    df.appendChild(noteEntryElement);
+                    var noteElement = document.createElement("div");
+                    noteElement.className = "note";
+                    noteEntryElement.appendChild(noteElement);
+
+                    var noteHeaderElement = document.createElement("header");
+                    noteHeaderElement.className = "note_header";
+                    noteElement.appendChild(noteHeaderElement);
+
+                    var dueDateElement = document.createElement("div");
+                    dueDateElement.className = "due_date";
+                    dueDateElement.textContent = note.due_date;
+                    noteHeaderElement.appendChild(dueDateElement);
+
+                    var titleElement = document.createElement("div");
+                    titleElement.className = "title";
+                    titleElement.textContent = note.title;
+                    noteHeaderElement.appendChild(titleElement);
+
+                    var importanceElement = document.createElement("div");
+                    importanceElement.className = "importance";
+                    for (var i = 0; i < note.importance; ++i) {
+                        var imgElement = document.createElement("img");
+                        imgElement.className = "flash";
+                        imgElement.src = "images/flash.svg";
+                        imgElement.alt = "Flash icon";
+                        importanceElement.appendChild(imgElement);
+                    }
+                    noteHeaderElement.appendChild(importanceElement);
+
+                    var noteDetailsElement = document.createElement("div");
+                    noteDetailsElement.className = "note_details";
+                    noteElement.appendChild(noteDetailsElement);
+
+                    var finishedElement = document.createElement("div");
+                    finishedElement.className = "finished";
+                    noteDetailsElement.appendChild(finishedElement);
+
+                    var checkElement = document.createElement("input");
+                    checkElement.type = "checkbox";
+                    checkElement.checked = note.finished;
+                    checkElement.disabled = true;
+                    finishedElement.appendChild(checkElement);
+
+                    if (note.description != "") {
+                        var descriptionElement = document.createElement("div");
+                        descriptionElement.className = "description";
+                        descriptionElement.textContent = note.description;
+                        noteDetailsElement.appendChild(descriptionElement);
+                    }
+
+                    var editElement = document.createElement("div");
+                    editElement.className = "edit";
+                    noteEntryElement.appendChild(editElement);
+
+                    var editButtonElement = document.createElement("input");
+                    editButtonElement.type = "button";
+                    editButtonElement.value = "Edit";
+                    editButtonElement.className = "edit_button";
+                    editElement.appendChild(editButtonElement);
+
+                });
+                document.getElementById("main_content").appendChild(df);
+            }
+
+            window.onload = function () {
+            appendNotes(notes);
+            }
+            </script>
+            <!--<div class="note_entry">
                 <div class="note">
                     <header class="note_header">
                         <div class="due_date">
@@ -67,7 +151,39 @@
                 <div class="edit">
                     <input class="edit_button" type="button" value="Edit">
                 </div>
-            </article>
+            </div>
+            <div class="note_entry">
+                <div class="note">
+                    <header class="note_header">
+                        <div class="due_date">
+                            17.10.2016
+                        </div>
+                        <div class="title">
+                            CAS Frontend Engineering - Selbstudium / Projektaufgabe erledigen
+
+                        </div>
+                        <div class="importance">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                            <img class="flash" src="images/flash.svg" alt="Flash icon">
+                        </div>
+                    </header>
+                    <div class="note_details">
+                        <div class="finished">
+                            <input type="checkbox">     Finished
+                        </div>
+                        <div class="description">
+                            HTML für die note App erstellen. <br>
+                            CSS erstellen für die note app [...]
+                        </div>
+                    </div>
+                </div>
+                <div class="edit">
+                    <input class="edit_button" type="button" value="Edit">
+                </div>
+            </div>-->
         </main>
     </div>
 </body>
