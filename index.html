@@ -26,13 +26,13 @@
 
             <div class="sorting_filtering">
                 <div class="sorting">
-                    <input class="sorting_button" type="button" value="Due date">
-                    <input class="sorting_button" type="button" value="Creation date">
-                    <input class="sorting_button" type="button" value="Importance">
+                    <input class="sorting_button" type="button" value="Due date" id="sort_by_due_date">
+                    <input class="sorting_button" type="button" value="Creation date" id="sort_by_creation_date">
+                    <input class="sorting_button" type="button" value="Importance" id="sort_by_importance">
                 </div>
                 <div class="empty_div"></div>
                 <div class="filtering">
-                    <input class="filtering" type="button" value="Show finished">
+                    <input class="filtering" type="button" value="Show finished" id="filter_finished">
                 </div>
             </div>
         </header>
@@ -40,14 +40,24 @@
             <script>
 
             var notes = [
-                {"title":"CAS FE - Projekt im Github eintragen.", "due_date":"16.09.2016", "importance":1, "finished":true, "description":"HTML für die note App erstellen. CSS erstellen für die note app "},
-                {"title":"CAS FE - HTML Gerüst erstellen für die WireFrames inkl. CSS.", "due_date":"23.09.2016", "importance":3, "finished":true, "description":""},
-                {"title":"CAS FE - HTML Seite ausprogrammieren.", "due_date":"30.09.2016", "importance":5, "finished":false, "description":"HTML Seite ausprogrammieren: Anzeigen der Einträge / Filtern / Sortieren Daten in einer Variable abspeichern & Beispiel Daten erfassen. Handlebars verwenden für das Rendern der Einträge. "}
+                {"id":1, "title":"CAS FE - Projekt im Github eintragen.", "due_date":"16.09.2016", "creation_date":"10.09.2016", "importance":1, "finished":true, "description":"HTML für die note App erstellen. CSS erstellen für die note app "},
+                {"id":2, "title":"CAS FE - HTML Gerüst erstellen für die WireFrames inkl. CSS.", "due_date":"23.09.2016", "creation_date":"09.09.2016", "importance":3, "finished":true, "description":""},
+                {"id":3, "title":"CAS FE - HTML Seite ausprogrammieren.", "due_date":"30.09.2016", "creation_date":"12.09.2016", "importance":5, "finished":false, "description":"HTML Seite ausprogrammieren: Anzeigen der Einträge / Filtern / Sortieren Daten in einer Variable abspeichern & Beispiel Daten erfassen. Handlebars verwenden für das Rendern der Einträge. "}
             ];
 
+            // remove all child elements in the content section before adding new notes
+            function removeContentElements() {
+                var contentElement = document.getElementById("main_content");
+                while (contentElement.firstChild) {
+                    contentElement.removeChild(contentElement.firstChild);
+                }
+            }
 
-            function appendNotes(notes) {
+            function renderNotes(notes) {
+               removeContentElements();
+
                 var df = document.createDocumentFragment();
+
                 notes.forEach(function (note) {
                     var noteEntryElement = document.createElement("div");
                     noteEntryElement.className = "note_entry";
@@ -116,8 +126,75 @@
                 document.getElementById("main_content").appendChild(df);
             }
 
+            function compareDueDates(note1, note2) {
+                return note1.due_date > note2.due_date;
+            }
+
+            function compareImportance(note1, note2) {
+                return note1.importance < note2.importance;
+            }
+
+            function compareCreationDate(note1, note2) {
+                return note1.creation_date > note2.creation_date;
+            }
+
+            function clickDueDateSortEventHandler(event) {
+                renderNotes(notes.sort(compareDueDates));
+                console.log("sort by due date");
+                console.log(notes);
+            }
+
+            function clickImportanceSortEventHandler(event) {
+                renderNotes(notes.sort(compareImportance));
+                console.log("sort by importance");
+                console.log(notes);
+            }
+
+            function clickCreationDateSortEventHandler(event) {
+                renderNotes(notes.sort(compareCreationDate))
+                console.log("sort by creation date");
+                console.log(notes);
+            }
+
+            function filterFinishedNotes(allNotes, notesToFilter) {
+                var totalNotes = allNotes.length;
+                console.log("Total all notes: " + totalNotes);
+
+                var mainContent = document.getElementById("main_content");
+                var notesDisplayed = mainContent.childElementCount;
+                console.log("Number of notes displayed: " + notesDisplayed);
+
+                if (totalNotes === notesDisplayed) {
+                    console.log("remove finished notes");
+                    allNotes.forEach(function (note) {
+                            if (note.finished) {
+                                console.log("removed note " + note.id);
+                                delete notesToFilter[note.id];
+                            }
+                            else {
+                                console.log("do not remove note " + note.id);
+                            }
+                        }
+                    );
+                    return notesToFilter;
+                }
+
+                return allNotes;
+
+            }
+            function clickFinishedFilterEventHandler(event) {
+                var notesToFilter = JSON.parse(JSON.stringify(notes));
+                var filteredNotes = filterFinishedNotes(notes, notesToFilter);
+                renderNotes(filteredNotes);
+            }
+
             window.onload = function () {
-            appendNotes(notes);
+                console.log(notes);
+                renderNotes(notes.sort(compareImportance));
+                document.getElementById("sort_by_due_date").addEventListener("click", clickDueDateSortEventHandler);
+                document.getElementById("sort_by_importance").addEventListener("click", clickImportanceSortEventHandler);
+                document.getElementById("sort_by_creation_date").addEventListener("click", clickCreationDateSortEventHandler);
+                document.getElementById("filter_finished").addEventListener("click", clickFinishedFilterEventHandler);
             }
             </script>
             <!--<div class="note_entry">
