@@ -1,13 +1,23 @@
 /**
  * Created by sonja on 29/09/16.
  */
-'use strict';
+"use strict";
 
 var notes = [
-    {"id":1, "title":"CAS FE - Projekt im Github eintragen.", "due_date":"16.09.2016", "creation_date":"10.09.2016", "importance":1, "finished":true, "description":"HTML für die note App erstellen. CSS erstellen für die note app "},
-    {"id":2, "title":"CAS FE - HTML Gerüst erstellen für die WireFrames inkl. CSS.", "due_date":"23.09.2016", "creation_date":"09.09.2016", "importance":3, "finished":true, "description":""},
-    {"id":3, "title":"CAS FE - HTML Seite ausprogrammieren.", "due_date":"30.09.2016", "creation_date":"12.09.2016", "importance":5, "finished":false, "description":"HTML Seite ausprogrammieren: Anzeigen der Einträge / Filtern / Sortieren Daten in einer Variable abspeichern & Beispiel Daten erfassen. Handlebars verwenden für das Rendern der Einträge. "}
+    {"id":1, "title":"CAS FE - Projekt im Github eintragen.", "dueDate":"16.09.2016", "creationDate":"10.09.2016", "importance":1, "finished":true, "description":"HTML für die note App erstellen. CSS erstellen für die note app "},
+    {"id":2, "title":"CAS FE - HTML Gerüst erstellen für die WireFrames inkl. CSS.", "dueDate":"23.09.2016", "creationDate":"09.09.2016", "importance":5, "finished":true, "description":""},
+    {"id":3, "title":"CAS FE - HTML Seite ausprogrammieren.", "dueDate":"30.09.2016", "creationDate":"12.09.2016", "importance":3, "finished":false, "description":"HTML Seite ausprogrammieren: Anzeigen der Einträge / Filtern / Sortieren Daten in einer Variable abspeichern & Beispiel Daten erfassen. Handlebars verwenden für das Rendern der Einträge. "}
 ];
+
+var notesTemplate = $("#notesTemplate").html();
+var createNotesHtml = Handlebars.compile (notesTemplate);
+
+Handlebars.registerHelper("imgFor", function(from, to, incr, block) {
+    var str = "";
+    for(var i = from; i < to; i += incr)
+        str = str + "<img class='flash' src='images/flash.svg' alt='Flash icon'>"
+    return str;
+});
 
 // used to remember the current sort orders (due date, creation date, importance)
 var sortOrderMap = {};
@@ -22,81 +32,13 @@ function removeContentElements() {
     }
 }
 
-function renderNotes(notes) {
+function renderNotes(sortedNotes) {
     removeContentElements();
-
-    var df = document.createDocumentFragment();
-
-    notes.forEach(function (note) {
-        var noteEntryElement = document.createElement("div");
-        noteEntryElement.className = "note_entry";
-        df.appendChild(noteEntryElement);
-        var noteElement = document.createElement("div");
-        noteElement.className = "note";
-        noteEntryElement.appendChild(noteElement);
-
-        var noteHeaderElement = document.createElement("header");
-        noteHeaderElement.className = "note_header";
-        noteElement.appendChild(noteHeaderElement);
-
-        var dueDateElement = document.createElement("div");
-        dueDateElement.className = "due_date";
-        dueDateElement.textContent = note.due_date;
-        noteHeaderElement.appendChild(dueDateElement);
-
-        var titleElement = document.createElement("div");
-        titleElement.className = "title";
-        titleElement.textContent = note.title;
-        noteHeaderElement.appendChild(titleElement);
-
-        var importanceElement = document.createElement("div");
-        importanceElement.className = "importance";
-        for (var i = 0; i < note.importance; ++i) {
-            var imgElement = document.createElement("img");
-            imgElement.className = "flash";
-            imgElement.src = "images/flash.svg";
-            imgElement.alt = "Flash icon";
-            importanceElement.appendChild(imgElement);
-        }
-        noteHeaderElement.appendChild(importanceElement);
-
-        var noteDetailsElement = document.createElement("div");
-        noteDetailsElement.className = "note_details";
-        noteElement.appendChild(noteDetailsElement);
-
-        var finishedElement = document.createElement("div");
-        finishedElement.className = "finished";
-        noteDetailsElement.appendChild(finishedElement);
-
-        var checkElement = document.createElement("input");
-        checkElement.type = "checkbox";
-        checkElement.checked = note.finished;
-        checkElement.disabled = true;
-        finishedElement.appendChild(checkElement);
-
-        if (note.description != "") {
-            var descriptionElement = document.createElement("div");
-            descriptionElement.className = "description";
-            descriptionElement.textContent = note.description;
-            noteDetailsElement.appendChild(descriptionElement);
-        }
-
-        var editElement = document.createElement("div");
-        editElement.className = "edit";
-        noteEntryElement.appendChild(editElement);
-
-        var editButtonElement = document.createElement("input");
-        editButtonElement.type = "button";
-        editButtonElement.value = "Edit";
-        editButtonElement.className = "edit_button " + currentButtonColor;
-        editElement.appendChild(editButtonElement);
-
-    });
-    document.getElementById("main_content").appendChild(df);
+    $("#main_content").append(createNotesHtml (sortedNotes));
 }
 
 function compareDueDate(note1, note2) {
-    return note1.due_date > note2.due_date;
+    return note1.dueDate > note2.dueDate;
 }
 
 function compareImportance(note1, note2) {
@@ -104,7 +46,7 @@ function compareImportance(note1, note2) {
 }
 
 function compareCreationDate(note1, note2) {
-    return note1.creation_date > note2.creation_date;
+    return note1.creationDate > note2.creationDate;
 }
 
 function sortNotes(sortFunction, key) {
@@ -170,14 +112,14 @@ function clickFinishedFilterEventHandler() {
 }
 
 function clickCreateNoteEventHandler() {
-    location.href='create_note.html';
+    location.href="create_note.html";
 }
 
 function removeCurrentRandomColor(elements, styles) {
     for (var i = 0; i < elements.length; i++) {
         var str = elements[i].className;
         for (var j = 0; j < styles.length; j++) {
-            var newStr = str.replace(styles[j], '');
+            var newStr = str.replace(styles[j], "");
             elements[i].className = newStr;
             if (newStr.length < str.length) {
                 break;
@@ -209,7 +151,8 @@ function switchStyleEventHandler(event) {
 
 window.onload = function () {
     console.log(notes);
-    renderNotes(notes.sort(compareImportance));
+    renderNotes(notes);
+
     document.getElementById("sort_by_due_date").addEventListener("click", clickDueDateSortEventHandler);
     document.getElementById("sort_by_importance").addEventListener("click", clickImportanceSortEventHandler);
     document.getElementById("sort_by_creation_date").addEventListener("click", clickCreationDateSortEventHandler);

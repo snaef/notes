@@ -6,6 +6,45 @@
     <link href="css/main.css" rel="stylesheet">
     <link href="css/view_notes.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js">
+    </script>
+    <script id='notesTemplate' type='text/x-handlebars-template'>﻿
+        ﻿﻿{{#each this}}﻿
+        <div class="note_entry">
+            <div class="note">
+                <header class="note_header">
+                    <div class="due_date">
+                        {{ dueDate }}
+                    </div>
+                    <div class="title">
+                        {{ title }}
+                    </div>
+                    ﻿{{#if importance }}
+                    <div class="importance">
+                        ﻿{{#imgFor 0 importance 1}}
+                            {{this}}
+                        {{/imgFor}}
+                        ﻿
+                    </div>
+                    ﻿{{/if}}
+                </header>
+                <div class="note_details">
+                    <div class="finished">
+                        <input type="checkbox" disabled >﻿<!--{{#if finished }} checked {{/if}} -->
+                    </div>
+                    ﻿{{#if description }}
+                    <div class="description">
+                        {{ description }}
+                    </div>
+                    ﻿{{/if}}
+                </div>
+            </div>
+            <div class="edit">
+                <input class="edit_button" type="button" value="Edit">
+            </div>
+        </div>
+        {{/each}}
+    </script>
 
 </head>
 <body>
