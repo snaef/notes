@@ -3,11 +3,23 @@
  */
 "use strict";
 
-var notes = [
-    {"id":1, "title":"CAS FE - Projekt im Github eintragen.", "dueDate":"16.09.2016", "creationDate":"10.09.2016", "importance":1, "finished":true, "description":"HTML für die note App erstellen. CSS erstellen für die note app "},
-    {"id":2, "title":"CAS FE - HTML Gerüst erstellen für die WireFrames inkl. CSS.", "dueDate":"23.09.2016", "creationDate":"09.09.2016", "importance":5, "finished":true, "description":""},
-    {"id":3, "title":"CAS FE - HTML Seite ausprogrammieren.", "dueDate":"30.09.2016", "creationDate":"12.09.2016", "importance":3, "finished":false, "description":"HTML Seite ausprogrammieren: Anzeigen der Einträge / Filtern / Sortieren Daten in einer Variable abspeichern & Beispiel Daten erfassen. Handlebars verwenden für das Rendern der Einträge. "}
-];
+function getNotes() {
+    var notes = sessionStorage.getItem("notes");
+       if (notes) {
+        notes = JSON.parse(notes);
+    }
+    else {
+        console.log("load notes");
+        notes = [
+            {"id":1, "title":"CAS FE - Projekt im Github eintragen.", "dueDate":"16.09.2016", "creationDate":"10.09.2016", "importance":1, "finished":true, "description":"HTML für die note App erstellen. CSS erstellen für die note app "},
+            {"id":2, "title":"CAS FE - HTML Gerüst erstellen für die WireFrames inkl. CSS.", "dueDate":"23.09.2016", "creationDate":"09.09.2016", "importance":5, "finished":true, "description":""},
+            {"id":3, "title":"CAS FE - HTML Seite ausprogrammieren.", "dueDate":"30.09.2016", "creationDate":"12.09.2016", "importance":3, "finished":false, "description":"HTML Seite ausprogrammieren: Anzeigen der Einträge / Filtern / Sortieren Daten in einer Variable abspeichern & Beispiel Daten erfassen. Handlebars verwenden für das Rendern der Einträge. "}
+        ];
+        sessionStorage.setItem("notes", JSON.stringify(notes));
+    }
+
+    return notes;
+}
 
 var notesTemplate = $("#notesTemplate").html();
 var createNotesHtml = Handlebars.compile (notesTemplate);
@@ -33,6 +45,7 @@ function removeContentElements() {
 }
 
 function renderNotes(sortedNotes) {
+    console.log("Render notes");
     removeContentElements();
     $("#main_content").append(createNotesHtml (sortedNotes));
 }
@@ -53,11 +66,11 @@ function sortNotes(sortFunction, key) {
     var currentSortOrder = sortOrderMap[key];
 
     if (currentSortOrder === "asc") {
-        renderNotes(notes.sort(sortFunction).reverse());
+        renderNotes(getNotes().sort(sortFunction).reverse());
         sortOrderMap[key] = "desc";
     }
     else {
-        renderNotes(notes.sort(sortFunction));
+        renderNotes(getNotes().sort(sortFunction));
         sortOrderMap[key] = "asc";
     }
     console.log(sortFunction);
@@ -106,13 +119,17 @@ function filterFinishedNotes(allNotes, notesToFilter) {
 
 function clickFinishedFilterEventHandler() {
     // Create a copy of the notes and apply filtering on this copy as we do not want to re-load the original notes from the server.
-    var notesToFilter = JSON.parse(JSON.stringify(notes));
-    var filteredNotes = filterFinishedNotes(notes, notesToFilter);
+    var notesToFilter = JSON.parse(JSON.stringify(getNotes()));
+    var filteredNotes = filterFinishedNotes(getNotes(), notesToFilter);
     renderNotes(filteredNotes);
 }
 
 function clickCreateNoteEventHandler() {
     location.href="create_note.html";
+}
+
+function clickEditEventHandler(event) {
+
 }
 
 function removeCurrentRandomColor(elements, styles) {
@@ -150,8 +167,9 @@ function switchStyleEventHandler(event) {
 }
 
 window.onload = function () {
-    console.log(notes);
+    var notes = getNotes();
     renderNotes(notes);
+    console.log(notes);
 
     document.getElementById("sort_by_due_date").addEventListener("click", clickDueDateSortEventHandler);
     document.getElementById("sort_by_importance").addEventListener("click", clickImportanceSortEventHandler);
@@ -159,4 +177,5 @@ window.onload = function () {
     document.getElementById("filter_finished").addEventListener("click", clickFinishedFilterEventHandler);
     document.getElementById("create_note").addEventListener("click", clickCreateNoteEventHandler);
     document.getElementById("style_switch").addEventListener("change", switchStyleEventHandler);
+    //document.getElementById("edit_note").addEventListener("click", clickEditEventHandler);
 };

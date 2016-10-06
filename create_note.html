@@ -8,15 +8,15 @@
 </head>
 <body>
     <div class="container">
-
+        ﻿<script src="js/createNote.js"></script>
         <form action="" class="create_note">
             <div class="title">
                 <div class="label">Title</div>
-                <input type="text" name="title" value="">
+                <input type="text" name="title" value="" id="title">
             </div>
             <div class="description">
                 <div class="label">Description</div>
-                <textarea></textarea>
+                <textarea id="description"></textarea>
             </div>
             <div class="importance">
                 <div class="label">Importance</div>
@@ -30,11 +30,10 @@
             </div>
             <div class="due_date">
                 <div class="label">Due date</div>
-                <input class="date" type="date" name="due_date" value="">
+                ﻿<input type="text" name="dueDate" value="" id="dueDate">
             </div>
 
-
-            <input type="button" class="submit" value="Save"/>
+            <input type="button" class="submit" value="Save" id="submit"/>
         </form>
         <input type="button" class="cancel_button" onclick="location.href='index.html';" value="Cancel"/>
     </div>
