@@ -13,8 +13,8 @@
         <div class="note_entry">
             <div class="note">
                 <header class="note_header">
-                    <div class="due_date">
-                        {{ dueDate }}
+                    <div class="finish_date">
+                        {{ finishDate }}
                     </div>
                     <div class="title">
                         {{ title }}
@@ -30,7 +30,11 @@
                 </header>
                 <div class="note_details">
                     <div class="finished">
-                        <input type="checkbox" disabled >﻿<!--{{#if finished }} checked {{/if}} -->
+                        {{#if finished }}
+                            <input type="checkbox" disabled checked>
+                        {{ else }}
+                            <input type="checkbox" disabled>
+                        {{/if}}
                     </div>
                     ﻿{{#if description }}
                     <div class="description">
@@ -40,7 +44,7 @@
                 </div>
             </div>
             <div class="edit">
-                <input class="edit_button" type="button" value="Edit" id="edit_note">
+                <input class="edit_button" noteId={{id}}  type="button" value="Edit" id=edit_note>
             </div>
         </div>
         {{/each}}
@@ -65,7 +69,7 @@
 
             <div class="sorting_filtering">
                 <div class="sorting">
-                    <input class="sorting_button" type="button" value="Due date" id="sort_by_due_date">
+                    <input class="sorting_button" type="button" value="Finish date" id="sort_by_finish_date">
                     <input class="sorting_button" type="button" value="Creation date" id="sort_by_creation_date">
                     <input class="sorting_button" type="button" value="Importance" id="sort_by_importance">
                 </div>
@@ -76,7 +80,10 @@
             </div>
         </header>
         <main class="content" id="main_content">
-            <script src="js/notesLibrary.js"></script>
+            <script src="js/notesApplication.js"></script>
+            <script src="js/notesService.js"></script>
+            <script src="js/notesStorage.js"></script>
+            <script src="js/dateUtility.js"></script>
         </main>
     </div>
 </body>

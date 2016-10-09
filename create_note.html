@@ -9,6 +9,9 @@
 <body>
     <div class="container">
         ﻿<script src="js/createNote.js"></script>
+        <script src="js/notesService.js"></script>
+        <script src="js/notesStorage.js"></script>
+        <script src="js/dateUtility.js"></script>
         <form action="" class="create_note">
             <div class="title">
                 <div class="label">Title</div>
@@ -28,11 +31,10 @@
                     <img class="flash" src="images/flash.svg" alt="Flash icon">
                 </div>
             </div>
-            <div class="due_date">
+            <div class="finish_date">
                 <div class="label">Due date</div>
-                ﻿<input type="text" name="dueDate" value="" id="dueDate">
+                ﻿<input type="text" name="finishDate" value="" id="finishDate">
             </div>
-
             <input type="button" class="submit" value="Save" id="submit"/>
         </form>
         <input type="button" class="cancel_button" onclick="location.href='index.html';" value="Cancel"/>
