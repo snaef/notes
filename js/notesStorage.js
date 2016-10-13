@@ -64,7 +64,9 @@ var notesStorage  = (function() {
 
     /* Converts date strings to dates.*/
     function replaceStringDates(strNotes) {
+        console.log(strNotes);
         var notes = JSON.parse(strNotes, function (key, value) {
+            console.log(key + " " + value);
                 if (typeof value === 'string') {
                     if (value.match(/(\d{4})-(\d{2})-(\d{2})T((\d{2}):(\d{2}):(\d{2}))\.(\d{3})Z/)) {
                         console.log(value);
@@ -85,26 +87,36 @@ var notesStorage  = (function() {
         // referesh sessionStorage
         var notes = localStorage.getItem("notes");
         notes = replaceStringDates(notes);
-        var noteExists = false;
-        notes.forEach(function(n) {
-            if (n.id === note.id) {
-                noteExists = true;
-            }
-        });
 
-        if (!noteExists) {
-            notes.push(note);
+        for (var i = notes.length -1 ; i >= 0; i--) {
+            if (notes[i].id === note.id) {
+                // remove existing entry as it is not up-to-date anymore (got edited)
+                notes.splice(i, 1);
+            }
         }
 
+        notes.push(note);
         localStorage.setItem("notes", JSON.stringify(notes));
     }
 
     function publicSetSelectedNote(id) {
-        localStorage.setItem("selectedNote", id);
+        var notes = localStorage.getItem("notes");
+        notes = replaceStringDates(notes);
+        notes.forEach(function(note) {
+            if (id === note.id) {
+                var n = notesService.createNote(id, note.title, note.creationDate, note.finishDate, note.importance, note.finished, note.description );
+                localStorage.setItem("selectedNote", JSON.stringify(n));
+            }
+        });
     }
 
     function publicGetSelectedNote() {
-        return localStorage.getItem("selectedNote");
+        var note = localStorage.getItem("selectedNote");
+        if (note === null) {
+            return null;
+        }
+
+        return replaceStringDates(note);
     }
 
     function publicClearSelectedNote() {

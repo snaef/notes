@@ -3,7 +3,7 @@
  */
 //;(function($, window, document, undefined) {
 
-    //$(function () {
+  //  $(function () {
         "use strict";
         var notesTemplate = $("#notesTemplate").html();
         var createNotesHtml = Handlebars.compile (notesTemplate);
@@ -34,6 +34,8 @@
             console.log("Render notes");
             removeContentElements();
             $("#main_content").append(createNotesHtml (notes));
+
+            registerEditButtons();
         }
 
         function getSortOrder(sortOrderKey) {
@@ -96,7 +98,7 @@
 
         function clickEditEventHandler(event) {
             var noteId = event.target.getAttribute("noteId");
-            notesService.setSelectedNote(noteId);
+            notesService.setSelectedNote(parseInt(noteId));
             location.href="create_note.html";
         }
 
@@ -146,14 +148,18 @@
             document.getElementById("filter_finished").addEventListener("click", clickFinishedFilterEventHandler);
             document.getElementById("create_note").addEventListener("click", clickCreateNoteEventHandler);
             document.getElementById("style_switch").addEventListener("change", switchStyleEventHandler);
+
+
+        };
+
+        function registerEditButtons() {
             var buttons = document.getElementsByClassName("edit_button");
             for(var i = 0; i < buttons.length; i++) {
                 buttons[i].addEventListener("click", clickEditEventHandler);
             }
+        }
 
-        };
+/* });
 
- /*   });
-
-})(jQuery, window, document);
+ })(jQuery, window, document);
 */

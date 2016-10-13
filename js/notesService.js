@@ -16,10 +16,10 @@ var notesService  = (function() {
 
     function Note(id, title, creationDate, finishDate, importance, finished, description) {
         if (id === undefined) {
-            this.id = notes.length + 1;
+            this.id = notesStorage.loadNotes().length + 1;
         }
         else {
-            this.id = id;
+            this.id = parseInt(id);
         }
         this.title = title;
         this.creationDate = creationDate;
@@ -27,6 +27,10 @@ var notesService  = (function() {
         this.importance = importance;
         this.finished = finished;
         this.description = description;
+    }
+
+    function publicCreateNote(id, title, creationDate, finishDate, importance, finished, description) {
+        return new Note(id, title, creationDate, finishDate, importance, finished, description);
     }
 
     // TODO: find an easier way
@@ -59,15 +63,15 @@ var notesService  = (function() {
     }
 
     function compareFinishDate(note1, note2) {
-         return note1.finishDate < note2.finishDate;
+         return note1.finishDate < note2.finishDate ? 1 : -1;
     }
 
     function compareImportance(note1, note2) {
-        return note1.importance < note2.importance;
+        return note1.importance < note2.importance ? 1 : -1;
     }
 
     function compareCreationDate(note1, note2) {
-        return note1.creationDate < note2.creationDate;
+        return note1.creationDate < note2.creationDate ? 1 : -1;
     }
 
     function publicApplyFinishedFilter() {
@@ -109,7 +113,7 @@ var notesService  = (function() {
 
     function publicGetNotes() {
         console.log("notesService.publicGetNotes");
-        if (typeof notes[0] == 'undefined') {
+        if (typeof notes[0] === 'undefined' || notes.length === 0) {
             notes = notesStorage.loadNotes();
         }
         return convertToPublicNotes(notes);
@@ -120,7 +124,10 @@ var notesService  = (function() {
     }
 
     function publicGetSelectedNote() {
-        return notesStorage.getSelectedNote();
+        var note = notesStorage.getSelectedNote();
+        var notes = [];
+        notes.push(note);
+        return convertToPublicNotes(notes)[0];
     }
 
     function publicClearSelectedNote() {
@@ -128,6 +135,7 @@ var notesService  = (function() {
     }
 
     return {
+        createNote : publicCreateNote,
         saveNote : publicSaveNote,
         sortNotes : publicSortNotes,
         applyFilter : publicApplyFinishedFilter,
