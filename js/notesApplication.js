@@ -114,7 +114,7 @@
         }
 
         function switchStyleEventHandler(event) {
-            var index = event.srcElement.selectedIndex;
+            var index = event.target.selectedIndex;
             var styles = ["blue_button", "red_button", "green_button", "white_button"];
 
             var elements = $("input:button");
