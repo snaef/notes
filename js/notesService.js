@@ -1,15 +1,13 @@
 /**
  * Created by sonja on 08/10/16.
  */
-
 var notesService  = (function() {
     // Keeps track of the notes in the current sorting order and filter state
     var notes = [];
 
-
     function publicSaveNote(id, title, creationDateStr, finishDateStr, importance, finished, description) {
-        var creationDateUTC = convertLocalDateStrToUTC(creationDateStr);
-        var finishDateUTC = convertLocalDateStrToUTC(finishDateStr);
+        var creationDateUTC = moment.utc(creationDateStr, "DD.MM.YYYY").format();
+        var finishDateUTC = moment.utc(finishDateStr﻿, "DD.MM.YYYY").format();
         var note = new Note(id, title, creationDateUTC, finishDateUTC, importance, finished, description);
         notesStorage.saveNote(note);
     }
@@ -96,12 +94,15 @@ var notesService  = (function() {
      */
     function convertToPublicNotes(notes) {
         var publicNotes = [];
+        var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         notes.forEach(function(note) {
             var publicNote = new Note(
                 note.id,
                 note.title,
-                note.creationDate.toLocaleDateString("de-ch"),
-                note.finishDate.toLocaleDateString("de-ch"),
+                moment(note.creationDate).local().format("DD.MM.YYYY"),
+                moment(note.finishDate).local().format("DD.MM.YYYY"),
+                //note.creationDate.toLocaleDateString("de-CH", options),
+                //note.finishDate.toLocaleDateString("de-CH", options),
                 note.importance,
                 note.finished,
                 note.description
@@ -125,9 +126,12 @@ var notesService  = (function() {
 
     function publicGetSelectedNote() {
         var note = notesStorage.getSelectedNote();
-        var notes = [];
-        notes.push(note);
-        return convertToPublicNotes(notes)[0];
+        if (note !== null) {
+            var notes = [];
+            notes.push(note);
+            return convertToPublicNotes(notes)[0];
+        }
+        return null;
     }
 
     function publicClearSelectedNote() {

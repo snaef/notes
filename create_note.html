@@ -5,6 +5,11 @@
     <title>Notes application</title>
     <link href="css/main.css" rel="stylesheet">
     <link href="css/new_note.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="lib/moment-with-locales.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -23,17 +28,23 @@
             </div>
             <div class="importance">
                 <div class="label">Importance</div>
-                <div class="importance">
-                    <img class="flash" src="images/flash.svg" alt="Flash icon">
-                    <img class="flash" src="images/flash.svg" alt="Flash icon">
-                    <img class="flash" src="images/flash.svg" alt="Flash icon">
-                    <img class="flash" src="images/flash.svg" alt="Flash icon">
-                    <img class="flash" src="images/flash.svg" alt="Flash icon">
+                <div class="select_importance">
+                        <label for="importance_1">None</label>
+                        <input type ="radio" name="importance" id="importance_1" value = 1 checked>
+                        <label for="importance_2">Low</label>
+                        <input type ="radio" name="importance" id="importance_2" value = 2>
+                        <label for="importance_3">Normal</label>
+                        <input type ="radio" name="importance" id="importance_3" value = 3>
+                        <label for="importance_4">High</label>
+                        <input type ="radio" name="importance" id="importance_4" value = 4>
+                        <label for="importance_5">Critical</label>
+                        <input type ="radio" name="importance" id="importance_5" value = 5>
                 </div>
             </div>
             <div class="finish_date">
                 <div class="label">Due date</div>
-                ﻿<input type="text" name="finishDate" value="" id="finishDate">
+                <input type="text" id="datepicker">
+                   <!-- <input type="text" name="finishDate" id="finishDate"> -->
             </div>
             <input type="button" class="submit" value="Save" id="submit"/>
         </form>
