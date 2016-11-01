@@ -1,0 +1,24 @@
+{
+  "name": "notes",
+  "version": "1.0.0",
+  "description": "Notes application",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "nedb": "^1.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snaef/notes.git"
+  },
+  "author": "Sonja Näf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snaef/notes/issues"
+  },
+  "homepage": "https://github.com/snaef/notes#readme"
+}

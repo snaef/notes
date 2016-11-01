@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes application</title>
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/new_note.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="../lib/moment-with-locales.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form action="" class="create_note">
+            <div class="title">
+                <div class="label">Title</div>
+                <input type="text" name="title" value="" id="title">
+            </div>
+            <div class="description">
+                <div class="label">Description</div>
+                <textarea id="description"></textarea>
+            </div>
+            <div class="importance">
+                <div class="label">Importance</div>
+                <div class="select_importance">
+                        <label for="importance_1">None</label>
+                        <input type ="radio" name="importance" id="importance_1" value = 1 checked>
+                        <label for="importance_2">Low</label>
+                        <input type ="radio" name="importance" id="importance_2" value = 2>
+                        <label for="importance_3">Normal</label>
+                        <input type ="radio" name="importance" id="importance_3" value = 3>
+                        <label for="importance_4">High</label>
+                        <input type ="radio" name="importance" id="importance_4" value = 4>
+                        <label for="importance_5">Critical</label>
+                        <input type ="radio" name="importance" id="importance_5" value = 5>
+                </div>
+            </div>
+            <div class="finish_date">
+                <div class="label">Due date</div>
+                <input type="text" id="datepicker">
+                   <!-- <input type="text" name="finishDate" id="finishDate"> -->
+            </div>
+            <input type="button" class="submit" value="Save" id="submit"/>
+        </form>
+        <input type="button" class="cancel_button" value="Cancel" id="cancel"/>
+        <script src="../js/manageNote.js"></script>
+        <script src="../js/notesService.js"></script>
+        <script src="../js/notesStorage.js"></script>
+        <script src="../js/dateUtility.js"></script>
+        <script src="../js/notesClientManageNotes.js"></script>
+        <script src="../js/ajaxUtil.js"></script>
+        <script src="../js/renderNote.js"></script>
+    </div>
+</body>
+</html>
