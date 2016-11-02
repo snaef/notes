@@ -10,6 +10,7 @@
         document.getElementById("title").value = selectedNote.title;
         document.getElementById("datepicker").value = selectedNote.finishDate;
         document.getElementById("description").value = selectedNote.description;
+        document.getElementById("checked_finished").checked = selectedNote.finished;
         $("input[name=importance][value=" + selectedNote.importance + "]").attr('checked', 'checked');
     }
 
@@ -21,7 +22,7 @@
         var title = document.getElementById("title").value;
         var finishDate = document.getElementById("datepicker").value;
         var description = document.getElementById("description").value;
-        var finished = false;
+        var finished = document.getElementById("checked_finished").checked;
         var importance = document.querySelector('input[name = "importance"]:checked').value;
 
         if (selectedNote !== null) {

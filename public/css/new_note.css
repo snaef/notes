@@ -22,11 +22,15 @@
     margin-bottom: 10px;
 }
 
+.finished {
+    display: flex;
+    margin-bottom: 10px;
+}
+
 .label {
     width: 20%;
     min-width: 80px;
     margin-top: 5px;
-
 }
 
 .select_importance {
@@ -52,6 +56,11 @@ input[type="button"].submit {
 }
 
 input[type="radio"] {
+    width: 8%;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
     width: 8%;
     margin-bottom: 10px;
 }
