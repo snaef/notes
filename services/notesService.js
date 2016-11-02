@@ -1,6 +1,7 @@
-/**
- * Created by sonja on 30/10/16.
+/*
+ * Notes backend services.
  */
+"use strict";
 var Datastore = require('nedb');
 var db = new Datastore({ filename: './data/notes.db', autoload: true });
 

@@ -1,8 +1,9 @@
-/**
- * Created by sonja on 30/10/16.
+/*
+ * Sorts notes by "Importance", "FinishDate" or "CreationDate" according to the provided sortOrder.
  */
-var notesSorting  = (function() {
-    function publicSortNotes(sortBy, sortOrder) {
+var sorter  = (function() {
+    "use strict";
+    function publicSortNotes(notes, sortBy, sortOrder) {
         console.log("notesService.publicSortNotes");
         notes.sort(getFunctionName(sortBy));
 

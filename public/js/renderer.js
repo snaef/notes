@@ -1,5 +1,5 @@
-/**
- * Created by sonja on 30/10/16.
+/*
+ * Renders the notes.
  */
 var render  = (function() {
     "use strict";
@@ -21,7 +21,6 @@ var render  = (function() {
         registerEditButtons();
     }
 
-
     function registerEditButtons() {
         var buttons = document.getElementsByClassName("edit_button");
         for(var i = 0; i < buttons.length; i++) {
@@ -36,7 +35,7 @@ var render  = (function() {
             var note = client.getNote(noteId);
             localStorage.setItem("selectedNote", JSON.stringify(note));
         });
-        location.href="../html/create_note.html";
+        location.href="../html/noteManagement.html";
     }
 
     // Remove all child elements in the content section before adding new notes.
@@ -48,17 +47,7 @@ var render  = (function() {
         }
     }
 
-    function publicRenderNote(note) {
-        console.log("Render note");
-        document.getElementById("title").value = note.title;
-        document.getElementById("datepicker").value = note.finishDate;
-        document.getElementById("description").value = note.description;
-        $("input[name=importance][value=" + note.importance + "]").attr('checked', 'checked');
-    }
-
     return {
-        renderNotes : publicRenderNotes,
-        renderNote : publicRenderNote
+        renderNotes : publicRenderNotes
     }
-
 })();

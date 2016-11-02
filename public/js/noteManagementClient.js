@@ -1,7 +1,8 @@
-/**
- * Created by sonja on 30/10/16.
+/*
+ * Rest client consisting of a server call to create and update notes.
  */
 ;(function($) {
+    "use strict";
     function Note(title, creationDate, finishDate, importance, finished, description) {
         this.title = title;
         this.creationDate = creationDate;
@@ -17,7 +18,7 @@
             .done(function (msg) {
                 console.log('success: ' + JSON.stringify(msg));
             }).fail(function (msg) {
-                console.log('getAllNotes failed: ' + msg);
+                console.log('displayNotes failed: ' + msg);
             });
     }
 
@@ -27,12 +28,8 @@
             .done(function (msg) {
                 console.log('success: ' + JSON.stringify(msg));
             }).fail(function (msg) {
-                console.log('getAllNotes failed: ' + msg);
+                console.log('displayNotes failed: ' + msg);
             });
     }
-
-
-
-
     window.notesClientManageNotes = { createNote: createNote, updateNote: updateNote };
 }(jQuery));

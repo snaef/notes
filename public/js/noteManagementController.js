@@ -1,5 +1,5 @@
-/**
- * Created by sonja on 06/10/16.
+/*
+ * Handles events of the note management UI.
  */
 ;(function($) {
     "use strict";
