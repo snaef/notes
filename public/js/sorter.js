@@ -4,7 +4,7 @@
 var sorter  = (function() {
     "use strict";
     function publicSortNotes(notes, sortBy, sortOrder) {
-        console.log("notesService.publicSortNotes");
+        console.log("sort notes: " + sortBy + " " + sortOrder);
         notes.sort(getFunctionName(sortBy));
 
         if (sortOrder === "desc") {

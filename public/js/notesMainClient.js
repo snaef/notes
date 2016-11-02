@@ -12,6 +12,7 @@
         if (notesStore.length !== 0) {
             applySortingFiltering(sortBy, sortOrder, filtered)
             render.renderNotes(notesStore);
+            console.log("render local notes");
         }
         else {
             loadNotesFromServer(sortBy, sortOrder, filtered);
@@ -31,8 +32,11 @@
         $.ajax({method: "GET", dataType: "json", contentType: "application/json", url: "/notes"
         }).done(function (msg) {
             notesStore = JSON.parse(JSON.stringify(msg));
-            applySortingFiltering(sortBy, sortOrder, filtered)
-            render.renderNotes(notesStore);
+            if (notesStore !== null) {
+                applySortingFiltering(sortBy, sortOrder, filtered)
+                render.renderNotes(notesStore);
+                console.log("render server notes");
+            }
         }).fail(function (msg) {
             console.log('displayNotes failed: ' + msg);
         });
@@ -48,10 +52,9 @@
     }
 
     function applyFinishedFilter(notes) {
-        console.log("notesService.publicApplyFinishedFilter");
+        console.log("Apply finished filter");
         for (var i = notes.length -1 ; i >= 0; i--) {
             if (notes[i].finished === false) {
-                console.log("removed note " + notes[i].id);
                 notes.splice(i, 1);
             }
         }
@@ -59,7 +62,7 @@
     }
 
     function clearFinishedFilter() {
-        console.log("notesService.publicClearFinishedFilter");
+        console.log("Removed finished filter");
         notesStore = [];
     }
 

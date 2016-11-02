@@ -3,7 +3,6 @@
  */
 ;(function($) {
     "use strict";
-
     $(function() {
         var client = window.notesClientViewNotes;
         client.displayNotes("Importance", "asc");
@@ -71,7 +70,6 @@
 
                 $("input:button").addClass(styles[randomNumber]);
                 currentButtonColor = styles[randomNumber];
-                console.log("random style: " + styles[randomNumber]);
             }
         }
 

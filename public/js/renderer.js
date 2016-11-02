@@ -14,7 +14,6 @@ var render  = (function() {
     });
 
     function publicRenderNotes(notes) {
-        console.log("Render notes");
         removeContentElements();
         $("#main_content").append(createNotesHtml(notes));
 
